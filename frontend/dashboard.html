@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | VARIA Carbon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f6f8f6;
+      color: #1a2c1e;
+      line-height: 1.5;
+    }
+
+    .navbar {
+      background: #ffffff;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eef2ee;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .navbar .logo { font-size: 1.2rem; font-weight: 700; color: #1a5d3a; }
+    .navbar .actions { display: flex; align-items: center; gap: 16px; font-size: 0.85rem; }
+    .navbar .actions .email { color: #6b7f6b; font-weight: 400; }
+    .btn-logout {
+      background: transparent;
+      border: 1px solid #d32f2f;
+      color: #d32f2f;
+      padding: 4px 14px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.75rem;
+      transition: all 0.2s;
+    }
+    .btn-logout:hover { background: #d32f2f; color: #fff; }
+
+    .dashboard-header {
+      padding: 20px 24px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .dashboard-header h1 { font-size: 1.4rem; font-weight: 600; }
+    .dashboard-header .stats { font-size: 0.85rem; color: #6b7f6b; }
+    .dashboard-header .stats strong { color: #1a2c1e; }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 0 24px 24px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 24px;
+      border: 1px solid #eef2ee;
+      transition: box-shadow 0.2s;
+    }
+    .card h2 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: #1a2c1e;
+      letter-spacing: -0.2px;
+    }
+    .card h2 .icon { margin-right: 6px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: #6b7f6b;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 3px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid #e2e8e0;
+      font-size: 0.8rem;
+      background: #fafcfa;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #1a5d3a;
+      box-shadow: 0 0 0 3px rgba(26,93,58,0.06);
+    }
+
+    .btn-primary {
+      background: #1a5d3a;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 40px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      font-size: 0.8rem;
+    }
+    .btn-primary:hover { background: #0f4a30; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-secondary {
+      background: #eef2ee;
+      color: #1a2c1e;
+      padding: 8px 16px;
+      border-radius: 40px;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      font-size: 0.8rem;
+    }
+    .btn-secondary:hover { background: #dce4dc; }
+
+    .result-box {
+      background: #e8f5e9;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 14px;
+      display: none;
+    }
+    .result-box .big { font-size: 2rem; font-weight: 700; color: #1a5d3a; }
+    .result-box .small { font-size: 0.8rem; color: #4a5b4a; }
+
+    .history-list { max-height: 300px; overflow-y: auto; }
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #eef2ee;
+      cursor: pointer;
+      transition: background 0.15s, padding-left 0.15s;
+    }
+    .history-item:hover { background: #f8faf8; padding-left: 6px; border-radius: 6px; }
+    .history-item .val { font-weight: 600; font-size: 0.9rem; color: #1a5d3a; }
+    .history-item .meta { text-align: right; font-size: 0.65rem; color: #6b7f6b; }
+    .history-item .meta time { display: block; }
+
+    .result-gray {
+      background: #f8faf8;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      display: none;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 16px;
+      margin: 6px 0;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.65rem;
+      margin-top: 4px;
+    }
+    .badge-high { background: #e8f5e9; color: #1a5d3a; }
+    .badge-good { background: #dff0e3; color: #1a5d3a; }
+    .badge-moderate { background: #fef3c7; color: #92400e; }
+    .badge-low { background: #fde8e8; color: #b91c1c; }
+
+    .trend-list { max-height: 120px; overflow-y: auto; margin-top: 6px; }
+    .trend-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 3px 0;
+      border-bottom: 1px solid #eef2ee;
+      font-size: 0.7rem;
+    }
+
+    .empty-state { text-align: center; padding: 20px 0; color: #6b7f6b; font-size: 0.85rem; }
+
+    @media (max-width: 1024px) { .dashboard-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) {
+      .navbar { padding: 12px 16px; flex-direction: column; align-items: stretch; gap: 8px; }
+      .navbar .actions { justify-content: space-between; flex-wrap: wrap; }
+      .dashboard-header { padding: 16px; flex-direction: column; align-items: flex-start; }
+      .dashboard-grid { padding: 0 16px 16px; gap: 16px; }
+      .card { padding: 16px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="logo">🌾 VARIA Carbon</div>
+    <div class="actions">
+      <span class="email" id="userEmail"></span>
+      <button class="btn-logout" id="logoutBtn">Logout</button>
+    </div>
+  </nav>
+
+  <!-- ===== HEADER ===== -->
+  <header class="dashboard-header">
+    <h1>Dashboard</h1>
+    <div class="stats">
+      <span>Plan: <strong id="userPlan">free</strong></span>
+      <span style="margin-left:16px;" id="requestsInfo">0 / 100 requests</span>
+    </div>
+  </header>
+
+  <!-- ===== GRID ===== -->
+  <div class="dashboard-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="space-y-5">
+
+      <!-- PREDICT -->
+      <div class="card">
+        <h2><span class="icon">🔮</span> Predict Soil Carbon</h2>
+        <form id="predictForm">
+          <div class="form-row">
+            <div class="form-group"><label>NDVI</label><input type="number" id="ndvi" step="0.01" value="0.6"></div>
+            <div class="form-group"><label>Precipitation (mm)</label><input type="number" id="precipitation" value="600"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Temperature (°C)</label><input type="number" id="temperature" value="17"></div>
+            <div class="form-group"><label>Elevation (m)</label><input type="number" id="elevation" value="300"></div>
+          </div>
+          <div class="form-group" style="margin-bottom:10px;"><label>Clay (%)</label><input type="number" id="clay" step="0.1" value="25"></div>
+          <button type="submit" id="predictBtn" class="btn-primary">Predict</button>
+        </form>
+        <div id="result" class="result-box"></div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="space-y-5">
+
+      <!-- BENCHMARK -->
+      <div class="card">
+        <h2><span class="icon">📊</span> Benchmark</h2>
+        <button id="benchmarkBtn" class="btn-secondary">Compare</button>
+        <div id="benchmarkResult" class="result-gray"></div>
+      </div>
+
+      <!-- TREND -->
+      <div class="card">
+        <h2><span class="icon">📈</span> Trend Analysis</h2>
+        <button id="trendBtn" class="btn-secondary">Show Trend</button>
+        <div id="trendResult" class="result-gray"></div>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="card">
+        <h2><span class="icon">💳</span> Upgrade Plan</h2>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button onclick="createPayment('basic')" class="btn-primary" style="flex:1; min-width:80px;">Basic $29</button>
+          <button onclick="createPayment('pro')" class="btn-primary" style="flex:1; min-width:80px;">Pro $99</button>
+          <button onclick="createPayment('enterprise')" class="btn-primary" style="flex:1; min-width:80px;">Enterprise $299</button>
+        </div>
+        <div id="paymentResult" class="mt-3 text-sm"></div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="card">
+        <h2><span class="icon">📜</span> History</h2>
+        <div id="historyList" class="history-list">
+          <div class="empty-state">Loading predictions...</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

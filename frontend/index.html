@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VARIA Carbon – AI-powered Soil Organic Carbon prediction from satellite data. Reduce MRV costs by 90%, R²=0.78, instant results.">
+  <meta name="keywords" content="soil carbon, SOC, MRV, carbon credits, agtech, remote sensing, AI">
+  <meta name="author" content="Mahdieh Kazemi">
+  <title>VARIA Carbon | AI for Soil Carbon Prediction</title>
+
+  <!-- ===== CSS ===== -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- ===== Tailwind CSS (Lightweight) ===== -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- ===== Google Fonts ===== -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- ===== Font Awesome ===== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ===== Custom overrides for Tailwind ===== */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f6f8f6;
+      color: #1a2c1e;
+    }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f3b2c 0%, #1a5d3a 50%, #2d7d4f 100%);
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .btn-primary {
+      background: #1a5d3a;
+      color: #fff;
+      padding: 12px 32px;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: #0f4a30;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      color: #1a5d3a;
+      padding: 12px 32px;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-block;
+      border: 2px solid #1a5d3a;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-outline:hover {
+      background: #1a5d3a;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    
+    .btn-white {
+      background: #fff;
+      color: #1a5d3a;
+      padding: 12px 32px;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-white:hover {
+      background: #f0f4f0;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2 text-2xl font-bold text-green-700 hover:text-green-800 transition">
+          <span>🌾</span>
+          <span>VARIA Carbon</span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#features" class="text-gray-700 hover:text-green-700 transition font-medium">Features</a>
+          <a href="#pricing" class="text-gray-700 hover:text-green-700 transition font-medium">Pricing</a>
+          <a href="login.html" class="btn-outline text-sm px-5 py-2">Log in</a>
+          <a href="signup.html" class="btn-primary text-sm px-5 py-2">Get Started</a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button id="menuBtn" class="md:hidden text-gray-700 hover:text-green-700 transition" aria-label="Toggle menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="hidden md:hidden pb-4">
+        <div class="flex flex-col gap-3">
+          <a href="#features" class="text-gray-700 hover:text-green-700 transition font-medium">Features</a>
+          <a href="#pricing" class="text-gray-700 hover:text-green-700 transition font-medium">Pricing</a>
+          <a href="login.html" class="text-gray-700 hover:text-green-700 transition font-medium">Log in</a>
+          <a href="signup.html" class="btn-primary text-center">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero-gradient text-white py-28 md:py-36">
+    <div class="max-w-5xl mx-auto text-center px-4">
+      <div class="inline-block bg-white/15 backdrop-blur-sm px-5 py-1.5 rounded-full text-sm font-medium tracking-wide mb-6 animate-fade">
+        🌍 AI-Powered Soil Carbon MRV
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade delay-1">
+        Predict Soil Organic Carbon<br>
+        <span class="text-green-300">from Space</span>
+      </h1>
+
+      <p class="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto mb-10 animate-fade delay-2">
+        90% lower cost • R² = 0.78 • Results in seconds
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade delay-3">
+        <a href="signup.html" class="btn-white text-lg px-10 py-3.5">
+          🚀 Get Started Free
+        </a>
+        <a href="#features" class="border-2 border-white text-white hover:bg-white hover:text-green-800 px-10 py-3.5 rounded-full font-bold text-lg transition-all duration-300">
+          Learn More
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURES
+  ============================================================ -->
+  <section id="features" class="py-20 px-4 max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4">How It Works</h2>
+    <p class="text-center text-gray-500 max-w-xl mx-auto mb-14 text-lg">
+      From satellite data to actionable soil intelligence in three simple steps.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- 1 -->
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center">
+        <div class="text-5xl mb-5">🛰️</div>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Satellite Data</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">
+          NDVI, precipitation, temperature, elevation, and clay content.
+        </p>
+      </div>
+
+      <!-- 2 -->
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center">
+        <div class="text-5xl mb-5">🤖</div>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">AI Model</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">
+          Random Forest • R² = 0.78 • Validated on EU soil data.
+        </p>
+      </div>
+
+      <!-- 3 -->
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center">
+        <div class="text-5xl mb-5">📊</div>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">Instant Output</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">
+          SOC% + Carbon credits potential (tons CO₂/ha).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROBLEM VS SOLUTION
+  ============================================================ -->
+  <section class="py-16 px-4 max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+        <h3 class="text-xl font-bold text-red-600 mb-4">❌ Traditional Lab</h3>
+        <ul class="space-y-3 text-gray-600">
+          <li class="flex items-start gap-3">
+            <span class="text-red-500 font-bold">✗</span>
+            <span><strong>$30–50 per hectare</strong> — too expensive</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-500 font-bold">✗</span>
+            <span><strong>Weeks</strong> to get results</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-500 font-bold">✗</span>
+            <span><strong>Limited samples</strong> — misses variability</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-500 font-bold">✗</span>
+            <span><strong>Doesn't scale</strong> to thousands of hectares</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+        <h3 class="text-xl font-bold text-green-700 mb-4">✅ VARIA Carbon</h3>
+        <ul class="space-y-3 text-gray-600">
+          <li class="flex items-start gap-3">
+            <span class="text-green-600 font-bold">✓</span>
+            <span><strong>90% lower cost</strong> — affordable at any scale</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-green-600 font-bold">✓</span>
+            <span><strong>Seconds</strong> — not weeks</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-green-600 font-bold">✓</span>
+            <span><strong>Full coverage</strong> — every part of the field</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-green-600 font-bold">✓</span>
+            <span><strong>Scales instantly</strong> to thousands of hectares</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PRICING
+  ============================================================ -->
+  <section id="pricing" class="py-20 px-4 max-w-6xl mx-auto bg-gray-50 rounded-3xl">
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4">Simple, Transparent Pricing</h2>
+    <p class="text-center text-gray-500 max-w-xl mx-auto mb-14 text-lg">
+      One-time payment. No subscription. Upgrade anytime.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Free -->
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 text-center hover:shadow-xl transition-all duration-300">
+        <h3 class="text-xl font-bold text-gray-800">Free</h3>
+        <div class="text-3xl font-bold text-green-700 my-4">$0</div>
+        <p class="text-gray-500 text-sm">100 requests/month</p>
+        <ul class="text-left text-sm text-gray-600 space-y-2 my-6">
+          <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Basic predictions</li>
+          <li class="flex items-center gap-2"><span class="text-green-600">✓</span> No history</li>
+          <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Email support</li>
+        </ul>
+        <a href="signup.html" class="btn-outline w-full block text-center">Get Started</a>
+      </div>
+
+      <!-- Basic -->
+      <div class="bg-white rounded-3xl shadow-xl border-2 border-green-700 p-8 text-center hover:shadow-xl transition-all duration-300 relative">
+        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-700 text-white px-4 py-1 rounded-full text-sm font-bold">
+          🔥 Most Popular
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mt-4">Basic</h3>
+        <div class="text-3xl font-bold text-green-700 my-4">$29</div>
+        <p class="text-gray-500 text-sm">/ month</p>
+        <ul class="text-left text-sm text-gray-600 space-y-2 my-6">
+          <li class="flex items-center gap-2"><span class="text-green-600">✓</span> 1,000 requests/month</li>
+          <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Full predictions</li>
+          <li class="flex items-center gap-2"><span class="text-green-600">✓</span> History saved</li>
+          <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Priority support</li>
+        </ul>
+        <a href="signup.html" class="btn-primary w-full block text-center">Start Free Trial</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 text-center hover:shadow-xl transition-all duration-300">
+        <h3 class="text-xl font-bold text-gray-800">Pro</h3>
+        <div class="text-3xl font-bold text-green-700 my-4">$99</div>
+        <p class="text-gray-500 text-sm">/ month</p>
+        <ul class="text-left text-sm text-gray-600 space-y-2 my-6">
+          <li class="flex items-center gap-2"><span class="text-green-600">✓</span> 10,000 requests/month</li>
+          <li class="flex items-center gap-2"><span class="text-green-600">✓</span> All Basic features</li>
+          <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Batch predictions</li>
+          <li class="flex items-center gap-2"><span class="text-green-600">✓</span> API access</li>
+        </ul>
+        <a href="signup.html" class="btn-primary w-full block text-center">Start Free Trial</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA
+  ============================================================ -->
+  <section class="py-20 px-4 max-w-4xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Ready to Measure Soil Carbon?</h2>
+    <p class="text-gray-500 text-lg mb-8">Join the future of carbon farming. Start predicting today.</p>
+    <a href="signup.html" class="btn-primary text-lg px-10 py-3.5">Create Free Account</a>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="bg-gray-900 text-gray-400 py-10 px-4">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+      <div>
+        <p class="text-white font-bold text-lg">🌾 VARIA Carbon</p>
+        <p class="text-sm text-gray-500">AI for Soil Organic Carbon Prediction</p>
+      </div>
+
+      <div class="flex flex-wrap gap-6 text-sm">
+        <a href="index.html" class="hover:text-white transition">Home</a>
+        <a href="#pricing" class="hover:text-white transition">Pricing</a>
+        <a href="login.html" class="hover:text-white transition">Log in</a>
+        <a href="signup.html" class="hover:text-white transition">Sign up</a>
+        <a href="mailto:mah.kzmi21@gmail.com" class="hover:text-white transition">Contact</a>
+      </div>
+
+      <p class="text-sm text-gray-600">
+        &copy; 2026 VARIA Carbon. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script>
+    // ===== Toggle Mobile Menu =====
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (menuBtn) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // ===== Smooth scroll for anchor links =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ===== Check if user is logged in =====
+    const token = localStorage.getItem('token');
+    if (token) {
+      const loginLinks = document.querySelectorAll('a[href="login.html"]');
+      loginLinks.forEach(link => {
+        link.textContent = 'Dashboard';
+        link.href = 'dashboard.html';
+      });
+      const signupLinks = document.querySelectorAll('a[href="signup.html"]');
+      signupLinks.forEach(link => {
+        link.textContent = 'Dashboard';
+        link.href = 'dashboard.html';
+      });
+    }
+  </script>
+</body>
+</html>

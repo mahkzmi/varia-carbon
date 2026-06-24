@@ -1,0 +1,13 @@
+📌 Brand Statement (یک جمله)
+"VARIA Carbon provides affordable, satellite-based soil carbon intelligence for carbon project developers and agribusinesses – reducing measurement costs by 90% without compromising credibility."
+
+
+📌 Brand Positioning (موقعیت‌یابی برند)
+"For carbon project developers and agribusinesses who need reliable, cost-effective soil carbon data, VARIA Carbon is an AI-powered platform that delivers instant SOC predictions from satellite inputs – unlike traditional lab testing, it eliminates weeks of waiting and $30-50/ha costs, enabling scalable MRV and faster carbon credit issuance."
+
+📌 Tagline (شعار تبلیغاتی)
+"Soil carbon measurement. From space. In seconds. For everyone."
+
+📌 Elevator Pitch (ارائه ۳۰ ثانیه‌ای)
+"VARIA Carbon is an AI platform that predicts Soil Organic Carbon from satellite data. Traditional lab tests cost $30-50 per hectare and take weeks. We do it in seconds at 90% lower cost. Our accuracy is validated at R²=0.78 on EU soil data. We help carbon projects scale faster and farmers access carbon credits without expensive infrastructure."
+
