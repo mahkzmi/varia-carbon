@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_c5399f3bf71035bc762eeff2854b6ef9 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_c5399f3bf71035bc762eeff2854b6ef9" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_c5399f3bf71035bc762eeff2854b6ef9 = L.map(
+                "map_c5399f3bf71035bc762eeff2854b6ef9",
+                {
+                    center: [35.0, 51.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_50094189a3a06cce7edd9d108f3375d1 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_50094189a3a06cce7edd9d108f3375d1.addTo(map_c5399f3bf71035bc762eeff2854b6ef9);
+        
+    
+            var marker_5a7d73423879c725ecd3feb1d32edb4b = L.marker(
+                [35.0, 51.0],
+                {
+}
+            ).addTo(map_c5399f3bf71035bc762eeff2854b6ef9);
+        
+    
+        var popup_bf40f0282134704cc45ac069cb1de198 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e060dee1420df1b24f24a737b08a09fa = $(`<div id="html_e060dee1420df1b24f24a737b08a09fa" style="width: 100.0%; height: 100.0%;">SOC: 5.64%</div>`)[0];
+                popup_bf40f0282134704cc45ac069cb1de198.setContent(html_e060dee1420df1b24f24a737b08a09fa);
+            
+        
+
+        marker_5a7d73423879c725ecd3feb1d32edb4b.bindPopup(popup_bf40f0282134704cc45ac069cb1de198)
+        ;
+
+        
+    
+</script>
+</html>
