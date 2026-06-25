@@ -1,3 +1,5 @@
+setuptools>=65.0.0
+wheel>=0.38.0
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 python-dotenv==1.0.0
@@ -13,5 +15,3 @@ numpy==1.24.3
 pandas==2.0.3
 requests==2.31.0
 folium==0.14.0
-setuptools>=65.0.0   # ← این خط را اضافه کن
-wheel>=0.38.0        # ← این خط را اضافه کن
