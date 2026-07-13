@@ -1,9 +1,12 @@
 # app.py
 import streamlit as st
-import requests
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+import joblib
+import numpy as np
+
+model = joblib.load("carbon_model_real_70.pkl")
 
 st.set_page_config(page_title="VARIA Carbon Predictor", layout="wide", page_icon="🌾")
 
@@ -86,14 +89,19 @@ if submitted:
     }
     
     try:
-        response = requests.post("http://localhost:8000/predict", json=payload)
-        if response.status_code == 200:
-            result = response.json()
-            carbon = result['predicted_soc_percent']
+        X = np.array([[
+            ndvi,
+            precipitation,
+            temperature,
+            elevation,
+            clay
+        ]])
+
+        carbon = round(float(model.predict(X)[0]), 2)
             
             # Display main result
-            col1, col2, col3 = st.columns([1, 2, 1])
-            with col2:
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
                 st.markdown("---")
                 st.markdown("<h2 style='text-align: center;'>📊 Prediction Result</h2>", unsafe_allow_html=True)
                 
