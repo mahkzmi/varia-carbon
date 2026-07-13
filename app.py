@@ -98,91 +98,89 @@ if submitted:
         ]])
 
         carbon = round(float(model.predict(X)[0]), 2)
-            
-            # Display main result
+        
+        # Display main result
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
-                st.markdown("---")
-                st.markdown("<h2 style='text-align: center;'>📊 Prediction Result</h2>", unsafe_allow_html=True)
-                
-                # Gauge Chart
-                fig = go.Figure(go.Indicator(
-                    mode = "gauge+number+delta",
-                    value = carbon,
-                    title = {'text': "Soil Organic Carbon (%)", 'font': {'size': 16}},
-                    domain = {'x': [0, 1], 'y': [0, 1]},
-                    gauge = {
-                        'axis': {'range': [0, 10], 'tickwidth': 1},
-                        'bar': {'color': "#1a5d3a"},
-                        'steps': [
-                            {'range': [0, 2], 'color': "#ef4444"},
-                            {'range': [2, 4], 'color': "#f59e0b"},
-                            {'range': [4, 6], 'color': "#eab308"},
-                            {'range': [6, 8], 'color': "#84cc16"},
-                            {'range': [8, 10], 'color': "#22c55e"}
-                        ],
-                        'threshold': {
-                            'line': {'color': "red", 'width': 4},
-                            'thickness': 0.75,
-                            'value': carbon
-                        }
+            st.markdown("---")
+            st.markdown("<h2 style='text-align: center;'>📊 Prediction Result</h2>", unsafe_allow_html=True)
+            
+            # Gauge Chart
+            fig = go.Figure(go.Indicator(
+                mode = "gauge+number+delta",
+                value = carbon,
+                title = {'text': "Soil Organic Carbon (%)", 'font': {'size': 16}},
+                domain = {'x': [0, 1], 'y': [0, 1]},
+                gauge = {
+                    'axis': {'range': [0, 10], 'tickwidth': 1},
+                    'bar': {'color': "#1a5d3a"},
+                    'steps': [
+                        {'range': [0, 2], 'color': "#ef4444"},
+                        {'range': [2, 4], 'color': "#f59e0b"},
+                        {'range': [4, 6], 'color': "#eab308"},
+                        {'range': [6, 8], 'color': "#84cc16"},
+                        {'range': [8, 10], 'color': "#22c55e"}
+                    ],
+                    'threshold': {
+                        'line': {'color': "red", 'width': 4},
+                        'thickness': 0.75,
+                        'value': carbon
                     }
-                ))
-                fig.update_layout(height=300, margin=dict(l=20, r=20, t=40, b=20))
-                st.plotly_chart(fig, use_container_width=True)
-                
-                # Advice based on carbon level
-                if carbon > 6:
-                    st.success(f"🌱 **{carbon}% - Carbon-rich soil!** ✅ Good potential for carbon credits.")
-                elif carbon > 3:
-                    st.warning(f"⚠️ **{carbon}% - Moderate soil carbon.** You can increase it with proper management.")
-                else:
-                    st.error(f"❌ **{carbon}% - Low soil carbon.** Action needed to improve soil fertility.")
+                }
+            ))
+            fig.update_layout(height=300, margin=dict(l=20, r=20, t=40, b=20))
+            st.plotly_chart(fig, use_container_width=True)
             
-            # Feature Importance Chart (simulated based on relationships)
-            st.markdown("---")
-            st.subheader("📈 Parameter Impact Analysis")
-            
-            impact_data = pd.DataFrame({
-                'Parameter': ['NDVI', 'Precipitation', 'Temperature', 'Elevation', 'Clay'],
-                'Impact (%)': [
-                    round(ndvi * 100, 1),
-                    round(precipitation / 1300 * 100, 1),
-                    round(max(0, (30 - temperature) / 30 * 100), 1),
-                    round(max(0, (2500 - elevation) / 2500 * 100), 1),
-                    round(clay / 60 * 100, 1)
-                ]
-            })
-            
-            fig2 = px.bar(impact_data, x='Parameter', y='Impact (%)', 
-                         color='Impact (%)', color_continuous_scale='Greens',
-                         title="Relative Impact of Each Parameter on Soil Carbon")
-            fig2.update_layout(height=400, showlegend=False)
-            st.plotly_chart(fig2, use_container_width=True)
-            
-            # Comparison with optimal values
-            st.markdown("---")
-            st.subheader("📊 Comparison with Optimal Values")
-            
-            compare_data = pd.DataFrame({
-                'Parameter': ['NDVI', 'Precipitation (mm)', 'Temperature (°C)', 'Elevation (m)', 'Clay (%)'],
-                'Your Value': [ndvi, precipitation, temperature, elevation, clay],
-                'Optimal Range': ['0.6-0.8', '600-1000', '15-20', '200-800', '20-40']
-            })
-            st.dataframe(compare_data, use_container_width=True, hide_index=True)
-            
-            # Carbon Credit Potential
-            st.markdown("---")
-            st.subheader("💰 Carbon Credit Potential")
-            if carbon > 4:
-                est_credits = round(carbon * 0.5, 1)
-                st.info(f"🌍 Estimated carbon credits per hectare: **{est_credits} tons CO₂ equivalent**")
-                st.markdown("Contact VARIA for carbon credit verification and market access.")
+            # Advice based on carbon level
+            if carbon > 6:
+                st.success(f"🌱 **{carbon}% - Carbon-rich soil!** ✅ Good potential for carbon credits.")
+            elif carbon > 3:
+                st.warning(f"⚠️ **{carbon}% - Moderate soil carbon.** You can increase it with proper management.")
             else:
-                st.warning("⚠️ Carbon level below threshold for credit generation. Improve soil health first.")
-            
+                st.error(f"❌ **{carbon}% - Low soil carbon.** Action needed to improve soil fertility.")
+        
+        # Feature Importance Chart (simulated based on relationships)
+        st.markdown("---")
+        st.subheader("📈 Parameter Impact Analysis")
+        
+        impact_data = pd.DataFrame({
+            'Parameter': ['NDVI', 'Precipitation', 'Temperature', 'Elevation', 'Clay'],
+            'Impact (%)': [
+                round(ndvi * 100, 1),
+                round(precipitation / 1300 * 100, 1),
+                round(max(0, (30 - temperature) / 30 * 100), 1),
+                round(max(0, (2500 - elevation) / 2500 * 100), 1),
+                round(clay / 60 * 100, 1)
+            ]
+        })
+        
+        fig2 = px.bar(impact_data, x='Parameter', y='Impact (%)', 
+                      color='Impact (%)', color_continuous_scale='Greens',
+                      title="Relative Impact of Each Parameter on Soil Carbon")
+        fig2.update_layout(height=400, showlegend=False)
+        st.plotly_chart(fig2, use_container_width=True)
+        
+        # Comparison with optimal values
+        st.markdown("---")
+        st.subheader("📊 Comparison with Optimal Values")
+        
+        compare_data = pd.DataFrame({
+            'Parameter': ['NDVI', 'Precipitation (mm)', 'Temperature (°C)', 'Elevation (m)', 'Clay (%)'],
+            'Your Value': [ndvi, precipitation, temperature, elevation, clay],
+            'Optimal Range': ['0.6-0.8', '600-1000', '15-20', '200-800', '20-40']
+        })
+        st.dataframe(compare_data, use_container_width=True, hide_index=True)
+        
+        # Carbon Credit Potential
+        st.markdown("---")
+        st.subheader("💰 Carbon Credit Potential")
+        if carbon > 4:
+            est_credits = round(carbon * 0.5, 1)
+            st.info(f"🌍 Estimated carbon credits per hectare: **{est_credits} tons CO₂ equivalent**")
+            st.markdown("Contact VARIA for carbon credit verification and market access.")
         else:
-            st.error("❌ Error connecting to server")
+            st.warning("⚠️ Carbon level below threshold for credit generation. Improve soil health first.")
+    
     except Exception as e:
         st.error(f"❌ Server error: {e}")
 
