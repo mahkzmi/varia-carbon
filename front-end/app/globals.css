@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --background: oklch(0.977 0.004 120);
+  --sage: oklch(0.966 0.01 160);
+
+  --page-bg: radial-gradient(
+    ellipse at top,
+    var(--sage),
+    var(--background) 70%
+  );
+}
+
+@utility bg-page {
+  background: var(--page-bg);
+}
+
+@utility topo {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.1;
+
+    /* Each wave path now ends at the same y it starts at, so the tile repeats without seams */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' fill='none' stroke='%23184D39' stroke-width='1'%3E%3Cpath d='M0 80 Q100 40 200 90 T400 80'/%3E%3Cpath d='M0 140 Q120 100 210 150 T400 140'/%3E%3Cpath d='M0 200 Q90 170 200 210 T400 200'/%3E%3Cpath d='M0 260 Q110 230 200 270 T400 260'/%3E%3Cpath d='M0 320 Q100 290 210 330 T400 320'/%3E%3Ccircle cx='300' cy='120' r='30'/%3E%3Ccircle cx='300' cy='120' r='55'/%3E%3Ccircle cx='90' cy='300' r='25'/%3E%3C/svg%3E");
+
+    background-repeat: repeat;
+    background-size: 480px 480px;
+  }
+}
