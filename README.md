@@ -98,6 +98,119 @@ text
 - 4GB RAM minimum
 
 ### Installation
+Frontend application built with Next.js, React, and TypeScript.
+
+Prerequisites
+
+Make sure you have the following installed:
+
+Node.js (LTS version recommended)
+
+npm (included with Node.js)
+
+Git
+
+Getting Started
+
+1. Clone the repository
+
+git clone https://github.com/mahkzmi/varia-carbon.git
+cd varia-carbon/front-end
+
+2. Install dependencies
+
+npm install
+
+3. Configure environment variables
+
+Copy .env.example to .env.local in the frontend project directory.
+
+Windows (PowerShell):
+
+Copy-Item .env.example .env.local
+
+** macOS / Linux:**
+
+cp .env.example .env.local
+
+Open .env.local and configure the required environment variables with the appropriate values.
+
+Do not commit .env.local or share secrets such as API keys and passwords. Only .env.example should be committed to Git, with placeholder values instead of real credentials.
+
+4. Run the development server
+
+npm run dev
+
+Open http://localhost:3000 in your browser.
+
+The development server supports hot reloading, so changes to your code will appear automatically.
+
+Available Scripts
+
+Command
+
+Description
+
+npm run dev
+
+Start the development server
+
+npm run build
+
+Build the application for production
+
+npm run start
+
+Start the production server (run npm run build first)
+
+npm run lint
+
+Run ESLint
+
+Production Build
+
+To create and run a production build:
+
+npm run build
+npm run start
+
+The application will be available at http://localhost:3000.
+
+Project Structure
+
+varia-carbon/
+├── front-end/
+│   ├── app/              # Next.js App Router pages and layouts
+│   ├── components/       # Reusable UI components
+│   ├── public/            # Static assets
+│   ├── .env.example       # Example environment variables
+│   ├── .env.local         # Local environment variables (not committed)
+│   ├── package.json
+│   └── README.md
+└── ...
+
+Note: The structure above is illustrative. Actual directories may vary.
+
+Troubleshooting
+
+npm install fails: Check your Node.js and npm versions, then try running npm install again.
+
+Environment variables are missing: Make sure .env.local exists and contains all required variables.
+
+Environment changes are not applied: Restart the development server after updating .env.local.
+
+Port 3000 is already in use: Stop the other process or configure a different port.
+
+Contributing
+
+Create a feature branch.
+
+Make your changes.
+
+Commit your changes with a descriptive message.
+
+Push your branch and open a Pull Request.
+
 
 ```bash
 # Clone the repository
